@@ -95,7 +95,7 @@ function init() {
     isCanvas = true;
     mosaics = canvas_mosaics;
   }
-  renderer.setClearColor( 0x333333 );
+  renderer.setClearColor( 0x222222 );
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize( window.innerWidth, window.innerHeight );
 
@@ -222,7 +222,7 @@ function init() {
 
     mesh = new THREE.Mesh(singleGeometry, multimaterial);
     scene.add(mesh);
-
+    document.getElementById("message").style.display = "none";
     animate();
   }
 
@@ -273,7 +273,6 @@ function init() {
   container.appendChild( stats.domElement );*/
 
   //
-  document.getElementById("message").style.display = "none";
   window.addEventListener( 'resize', onWindowResize, false );
 }
 
@@ -441,7 +440,7 @@ function onTouchEnd( event ) {
       }
       var metadata = collection[currentIntersectFace];
       document.getElementById("imageinfo").innerHTML = "<p><strong>"+metadata.artist+", <a href='"+work_url+
-        "' target='_blank'><em>"+metadata.title+"</em></a></strong>. "+metadata.yearstring+".</p>";
+        "' target='_blank'><em>"+metadata.title+"</em></a></strong>. "+metadata.yearstring+"</p>";
     }
   }
   if (autoZoomed) autoZoomed = false;
@@ -467,7 +466,7 @@ function animate() {
     var scaledVec = (Math.min(temp.length(), autoPanStop) - autoPanStart) / (autoPanStop - autoPanStart);
     var distanceScale = (camera.position.z) / 2200;
 
-    var speed = Math.sin(scaledVec * Math.PI) * 4 * distanceScale;
+    var speed = Math.sin(scaledVec * Math.PI) * 1 * distanceScale;
 
     temp.x *= speed;
     temp.y *= speed;
@@ -510,7 +509,7 @@ function updateTileInfo() {
     if (currentIntersectFace == -1) {
       // entering tile
       var metadata = collection[face_index];
-      document.getElementById("imageinfo").innerHTML = "<p><strong>"+metadata.artist+", <em>"+metadata.title+"</em></strong>. "+metadata.yearstring+".</p>";
+      document.getElementById("imageinfo").innerHTML = "<p><strong>"+metadata.artist+", <em>"+metadata.title+"</em></strong>. "+metadata.yearstring+"</p>";
       document.getElementById("imageinfo").style.display = "block";
       document.getElementById("container").setAttribute("class","clickable");
       currentIntersectFace = face_index;
@@ -526,7 +525,7 @@ function updateTileInfo() {
     } else if (face_index != currentIntersectFace) {
       // entering tile, leaving previous tile
       var metadata = collection[face_index];
-      document.getElementById("imageinfo").innerHTML = "<p><strong>"+metadata.artist+", <em>"+metadata.title+"</em></strong>. "+metadata.yearstring+".</p>";
+      document.getElementById("imageinfo").innerHTML = "<p><strong>"+metadata.artist+", <em>"+metadata.title+"</em></strong>. "+metadata.yearstring+"</p>";
       removeHighResImage(currentIntersectFace);
       if ( isTouch ) {
         // lower previous selected tile and raise new selected tile
